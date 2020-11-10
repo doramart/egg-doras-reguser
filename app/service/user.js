@@ -2,7 +2,7 @@
  * @Author: doramart 
  * @Date: 2019-06-24 13:20:49 
  * @Last Modified by: doramart
- * @Last Modified time: 2020-10-03 09:51:55
+ * @Last Modified time: 2020-10-08 10:16:01
  */
 
 'use strict';
@@ -43,11 +43,11 @@ class UserService extends Service {
                     attributes: ['title', 'stitle', '_id', 'id', 'sImg', 'url'],
                     model: 'Content'
                 },
-                {
-                    as: 'message',
-                    attributes: ['title', 'stitle', '_id', 'id', 'sImg', 'url'],
-                    model: 'Content'
-                },
+                // {
+                //     as: 'message',
+                //     attributes: ['title', 'stitle', '_id', 'id', 'sImg', 'url'],
+                //     model: 'Content'
+                // },
                 {
                     as: 'despise',
                     attributes: ['title', 'stitle', '_id', 'id', 'sImg', 'url'],
