@@ -1,189 +1,167 @@
 const xss = require("xss");
-const _ = require('lodash');
+const _ = require("lodash");
 
 const regUserRule = (ctx) => {
-    return {
-        userName: {
-            type: "string",
-            required: true,
-            min: 2,
-            max: 30,
-            message: ctx.__("validate_error_field", [ctx.__("label_user_userName")])
-        },
-        email: {
-            type: "email",
-            required: true,
-            message: ctx.__("validate_inputCorrect", [ctx.__("label_user_email")])
-        },
-        phoneNum: {
-            type: "string",
-            required: true,
-            message: "invalid phoneNum"
-        },
-    }
-}
-
-
+  return {
+    userName: {
+      type: "string",
+      required: true,
+      min: 2,
+      max: 30,
+      message: ctx.__("validate_error_field", [ctx.__("label_user_userName")]),
+    },
+    email: {
+      type: "email",
+      required: true,
+      message: ctx.__("validate_inputCorrect", [ctx.__("label_user_email")]),
+    },
+    phoneNum: {
+      type: "string",
+      required: true,
+      message: "invalid phoneNum",
+    },
+  };
+};
 
 let RegUserController = {
+  async list(ctx, app) {
+    try {
+      let payload = ctx.query;
+      let userlist = await ctx.service.user.find(payload);
 
-    async list(ctx, app) {
+      ctx.helper.renderSuccess(ctx, {
+        data: userlist,
+      });
+    } catch (err) {
+      ctx.helper.renderFail(ctx, {
+        message: err,
+      });
+    }
+  },
 
-        try {
+  async getOne(ctx, app) {
+    try {
+      let id = ctx.query.id;
 
-            let payload = ctx.query;
-            let userlist = await ctx.service.user.find(payload);
+      let targetUser = await ctx.service.user.item({
+        query: {
+          id: id,
+        },
+      });
 
-            ctx.helper.renderSuccess(ctx, {
-                data: userlist
-            });
+      ctx.helper.renderSuccess(ctx, {
+        data: targetUser,
+      });
+    } catch (err) {
+      ctx.helper.renderFail(ctx, {
+        message: err,
+      });
+    }
+  },
 
-        } catch (err) {
+  async update(ctx, app) {
+    try {
+      let fields = ctx.request.body || {};
+      let targetId = fields._id || fields.id;
 
-            ctx.helper.renderFail(ctx, {
-                message: err
-            });
+      if (!targetId) {
+        throw new Error(ctx.__("validate_error_params"));
+      }
 
+      ctx.validate(regUserRule(ctx), {
+        userName: fields.userName,
+        email: fields.email,
+        phoneNum: fields.phoneNum,
+      });
+
+      const userObj = {};
+
+      if (fields.enable != "undefined" && fields.enable != undefined) {
+        userObj.enable = fields.enable;
+      }
+      if (fields.userName) {
+        userObj.userName = fields.userName;
+      }
+      if (fields.phoneNum) {
+        userObj.phoneNum = fields.phoneNum;
+      }
+      if (fields.name) {
+        userObj.name = fields.name;
+      }
+      if (fields.gender) {
+        userObj.gender = fields.gender;
+      }
+
+      if (fields.logo) {
+        userObj.logo = fields.logo;
+      }
+
+      if (fields.confirm) {
+        userObj.confirm = fields.confirm;
+      }
+      if (fields.group) {
+        userObj.group = fields.group;
+      }
+      if (fields.category) {
+        userObj.category = fields.category;
+      }
+      if (fields.comments) {
+        userObj.comments = xss(fields.comments);
+      }
+      if (fields.introduction) {
+        userObj.introduction = xss(fields.introduction);
+      }
+      if (fields.company) {
+        userObj.company = fields.company;
+      }
+      if (fields.province) {
+        userObj.province = fields.province;
+      }
+      if (fields.city) {
+        userObj.city = fields.city;
+      }
+      if (fields.birth) {
+        // 生日日期不能大于当前时间
+        if (new Date(fields.birth).getTime() > new Date().getTime()) {
+          throw new Error(ctx.__("validate_error_params"));
         }
-    },
+        userObj.birth = fields.birth;
+      }
+      if (fields.industry) {
+        userObj.industry = xss(fields.industry);
+      }
+      if (fields.profession) {
+        userObj.profession = xss(fields.profession);
+      }
+      if (fields.experience) {
+        userObj.experience = xss(fields.experience);
+      }
+      if (fields.password) {
+        userObj.password = fields.password;
+      }
 
+      // console.log('--userObj--', userObj)
+      await ctx.service.user.update(targetId, userObj);
 
-    async getOne(ctx, app) {
+      ctx.helper.renderSuccess(ctx);
+    } catch (err) {
+      ctx.helper.renderFail(ctx, {
+        message: err,
+      });
+    }
+  },
 
-        try {
-            let id = ctx.query.id;
-
-            let targetUser = await ctx.service.user.item({
-                query: {
-                    id: id
-                }
-            });
-
-            ctx.helper.renderSuccess(ctx, {
-                data: targetUser
-            });
-
-        } catch (err) {
-            ctx.helper.renderFail(ctx, {
-                message: err
-            });
-        }
-
-    },
-
-
-    async update(ctx, app) {
-
-
-        try {
-
-            let fields = ctx.request.body || {};
-
-            ctx.validate(regUserRule(ctx), {
-                userName: fields.userName,
-                email: fields.email,
-                phoneNum: fields.phoneNum,
-            });
-
-            const userObj = {};
-
-            if (fields.enable != 'undefined' && fields.enable != undefined) {
-                userObj.enable = fields.enable;
-            }
-            if (fields.userName) {
-                userObj.userName = fields.userName;
-            }
-            if (fields.phoneNum) {
-                userObj.phoneNum = fields.phoneNum;
-            }
-            if (fields.name) {
-                userObj.name = fields.name;
-            }
-            if (fields.gender) {
-                userObj.gender = fields.gender;
-            }
-
-            if (fields.logo) {
-                userObj.logo = fields.logo;
-            }
-
-            if (fields.confirm) {
-                userObj.confirm = fields.confirm;
-            }
-            if (fields.group) {
-                userObj.group = fields.group;
-            }
-            if (fields.category) {
-                userObj.category = fields.category;
-            }
-            if (fields.comments) {
-                userObj.comments = xss(fields.comments);
-            }
-            if (fields.introduction) {
-                userObj.introduction = xss(fields.introduction);
-            }
-            if (fields.company) {
-                userObj.company = fields.company;
-            }
-            if (fields.province) {
-                userObj.province = fields.province;
-            }
-            if (fields.city) {
-                userObj.city = fields.city;
-            }
-            if (fields.birth) {
-                // 生日日期不能大于当前时间
-                if (new Date(fields.birth).getTime() > new Date().getTime()) {
-                    throw new Error(ctx.__('validate_error_params'));
-                }
-                userObj.birth = fields.birth;
-            }
-            if (fields.industry) {
-                userObj.industry = xss(fields.industry);
-            }
-            if (fields.profession) {
-                userObj.profession = xss(fields.profession);
-            }
-            if (fields.experience) {
-                userObj.experience = xss(fields.experience);
-            }
-            if (fields.password) {
-                userObj.password = fields.password;
-            }
-
-            // console.log('--userObj--', userObj)
-            await ctx.service.user.update(fields.id, userObj);
-
-            ctx.helper.renderSuccess(ctx);
-
-
-        } catch (err) {
-
-            ctx.helper.renderFail(ctx, {
-                message: err
-            });
-
-        }
-
-    },
-
-
-    async removes(ctx, app) {
-
-        try {
-
-            let targetIds = ctx.query.ids;
-            await ctx.service.user.safeDelete(targetIds);
-            ctx.helper.renderSuccess(ctx);
-
-        } catch (err) {
-
-            ctx.helper.renderFail(ctx, {
-                message: err
-            });
-        }
-    },
-
-}
+  async removes(ctx, app) {
+    try {
+      let targetIds = ctx.query.ids;
+      await ctx.service.user.safeDelete(targetIds);
+      ctx.helper.renderSuccess(ctx);
+    } catch (err) {
+      ctx.helper.renderFail(ctx, {
+        message: err,
+      });
+    }
+  },
+};
 
 module.exports = RegUserController;
