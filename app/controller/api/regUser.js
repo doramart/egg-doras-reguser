@@ -156,7 +156,7 @@ let RegUserController = {
      *    "server_time": 1543372263586,
      *    "data": {}
      *}
-     * @apiSampleRequest http://localhost:8080/api/user/updateInfo
+     * @apiSampleRequest http://localhost:10003/api/user/updateInfo
      * @apiVersion 1.0.0
      */
     async updateUser(ctx, app) {
@@ -397,7 +397,7 @@ let RegUserController = {
      *    server_time: 1542082677922
      *    status: 500
      *  }
-     * @apiSampleRequest http://localhost:8080/api/user/bindInfo
+     * @apiSampleRequest http://localhost:10003/api/user/bindInfo
      * @apiVersion 1.0.0
      */
     async bindEmailOrPhoneNum(ctx, app) {
@@ -548,7 +548,7 @@ let RegUserController = {
      *    server_time: 1542082677922
      *    status: 500
      *  }
-     * @apiSampleRequest http://localhost:8080/api/user/doLogin
+     * @apiSampleRequest http://localhost:10003/api/user/doLogin
      * @apiVersion 1.0.0
      */
     async loginAction(ctx, app) {
@@ -798,7 +798,7 @@ let RegUserController = {
      *    server_time: 1542082677922
      *    status: 500
      *  }
-     * @apiSampleRequest http://localhost:8080/api/user/touristLogin
+     * @apiSampleRequest http://localhost:10003/api/user/touristLogin
      * @apiVersion 1.0.0
      */
     async touristLoginAction(ctx, app) {
@@ -920,7 +920,7 @@ let RegUserController = {
      *    server_time: 1542082677922
      *    status: 500
      *  }
-     * @apiSampleRequest http://localhost:8080/api/user/doReg
+     * @apiSampleRequest http://localhost:10003/api/user/doReg
      * @apiVersion 1.0.0
      */
     async regAction(ctx, app) {
@@ -1064,7 +1064,7 @@ let RegUserController = {
      *    "checkState": true  // true/存在  false/不存在
      *  }
      *}
-     * @apiSampleRequest http://localhost:8080/api/user/checkPhoneNumExist
+     * @apiSampleRequest http://localhost:10003/api/user/checkPhoneNumExist
      * @apiVersion 1.0.0
      */
     async checkPhoneNumExist(ctx, app) {
@@ -1145,7 +1145,7 @@ let RegUserController = {
      *    "checkState": true  // true/已设置  false/未设置
      *  }
      *}
-     * @apiSampleRequest http://localhost:8080/api/user/checkHadSetLoginPassword
+     * @apiSampleRequest http://localhost:10003/api/user/checkHadSetLoginPassword
      * @apiVersion 1.0.0
      */
     async checkHadSetLoginPassword(ctx, app) {
@@ -1351,7 +1351,7 @@ let RegUserController = {
      *     "server_time": 1544536543533,
      *     "data": {}
      * }
-     * @apiSampleRequest http://localhost:8080/api/user/resetPassword
+     * @apiSampleRequest http://localhost:10003/api/user/resetPassword
      * @apiVersion 1.0.0
      */
     async resetMyPassword(ctx, app) {
@@ -1532,7 +1532,7 @@ let RegUserController = {
      *     "server_time": 1544536543533,
      *     "data": {}
      * }
-     * @apiSampleRequest http://localhost:8080/api/user/modifyMyPsd
+     * @apiSampleRequest http://localhost:10003/api/user/modifyMyPsd
      * @apiVersion 1.0.0
      */
     async modifyMyPsd(ctx, app) {
@@ -1607,7 +1607,7 @@ let RegUserController = {
      *    
      *  }
      *}
-     * @apiSampleRequest http://localhost:8080/api/user/addTags
+     * @apiSampleRequest http://localhost:10003/api/user/addTags
      * @apiVersion 1.0.0
      */
     async addTags(ctx, app) {
@@ -1690,7 +1690,7 @@ let RegUserController = {
      *    
      *  }
      *}
-     * @apiSampleRequest http://localhost:8080/api/user/followCreator
+     * @apiSampleRequest http://localhost:10003/api/user/followCreator
      * @apiVersion 1.0.0
      */
     async followCreator(ctx, app) {
@@ -1807,7 +1807,7 @@ let RegUserController = {
      *    server_time: 1542082677922
      *    status: 500
      *  }
-     * @apiSampleRequest http://localhost:8080/api/user/sendVerificationCode
+     * @apiSampleRequest http://localhost:10003/api/user/sendVerificationCode
      * @apiVersion 1.0.0
      */
     async sendVerificationCode(ctx, app) {
@@ -1954,7 +1954,7 @@ let RegUserController = {
      *    "server_time": 1543372263586,
      *    "data": {}
      *}
-     * @apiSampleRequest http://localhost:8080/api/user/askContentThumbsUp
+     * @apiSampleRequest http://localhost:10003/api/user/askContentThumbsUp
      * @apiVersion 1.0.0
      */
     async askContentThumbsUp(ctx, app) {
@@ -2046,7 +2046,7 @@ let RegUserController = {
      *    "server_time": 1543372263586,
      *    "data": {}
      *}
-     * @apiSampleRequest http://localhost:8080/api/user/favoriteContent
+     * @apiSampleRequest http://localhost:10003/api/user/favoriteContent
      * @apiVersion 1.0.0
      */
     async favoriteContent(ctx, app) {
@@ -2121,7 +2121,7 @@ let RegUserController = {
      *    "server_time": 1543372263586,
      *    "data": {}
      *}
-     * @apiSampleRequest http://localhost:8080/api/user/favoriteContent
+     * @apiSampleRequest http://localhost:10003/api/user/favoriteContent
      * @apiVersion 1.0.0
      */
     async despiseContent(ctx, app) {
